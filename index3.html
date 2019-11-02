@@ -1,0 +1,81 @@
+<html>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <my-component
+                :prop-a='parentA'
+                :prop-b='parentB' 
+                :prop-c='parentC' 
+                :prop-d='parentD'
+                :prop-e='parentE' 
+                :prop-f='parentF' 
+            ></my-component>
+        </div>
+
+        <script>
+            Vue.component('my-component', {
+                props: {
+                    // 기본 형태(타입 지정)
+                    propA: Number,
+                    // 멀티 타입 지정
+                    propB: [String, Number],
+                    // 타입 , 필수여부 
+                    propC: {
+                        type: String,
+                        required:true
+                    },
+                    // // 타입 , 기본갑 지정
+                    propD: {
+                        type: Number,
+                        default: 100
+                    },
+                    // // Object with a default value
+                    propE: {
+                        type: Object,
+                        // 기본 데이터 함수형
+                        default:function () {
+                            return { message:'hello' }
+                        }
+                    },
+                    // // 유효성 체크
+                    propF: {
+                        validator:function (value) {
+                            console.log('value : ' + value);
+                            return ['success','warning','danger'].indexOf(value) !== -1
+                        }
+                    }
+                },
+                data() {
+                    return {
+                        count: 0
+                    }
+                },
+                template:`<div>
+                    <p>{{propA}}</p>
+                    <p>{{propB}}</p>
+                    <p>{{propC}}</p>
+                    <p>{{propD}}</p>
+                    <p>{{propE.message}}</p>
+                    <p>{{propF}}</p>
+                </div>`
+            });
+
+            // 뷰 인스턴스 생성
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    parentA: 1,
+                    parentB: 2,
+                    parentC: 'textC',
+                    parentD: 3,
+                    parentE: {
+                        message:'parentE message'
+                    },
+                    parentF: 'success',
+                },
+            })
+        </script>
+    </body>
+</html>
