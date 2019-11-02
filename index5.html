@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <div v-if="isActive">
+                ok active
+            </div>
+            <div v-if="!isActive">
+                not active
+            </div>
+
+            <button @click="changeActive">CHANGE BUTTON</button>
+            
+            <div>
+                <p v-for="item in items">{{item}}</p>
+            </div>
+        </div>
+
+        <script>
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    isActive: false,
+                    items: [1,2,3,4,5,6],
+                },
+                methods: {
+                    changeActive() {
+                        this.isActive = !this.isActive;
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>
