@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <h1>Computed 메소드</h1>
+            <input type="text" v-model="message">
+            <div>
+                <p>"{{ message }}"</p>
+                <p>"{{ reversedMessage }}"</p>
+                <p>"{{ simpleMessage }}"</p>
+            </div>
+        </div>
+
+        <script>
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    message: '메세지 하나 둘 셋',
+                    sMsg: '',
+                },
+                computed: {
+                    reversedMessage() {
+                        this.simpleMessage = this.message;
+                        return this.message.split('').reverse().join('')
+                    },
+                    simpleMessage: {
+                        // getter
+                        get() {
+                            return this.sMsg;
+                        },
+                        // setter
+                        set(newValue) {
+                            this.sMsg = this.message.substring(0,4);
+                        }
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>

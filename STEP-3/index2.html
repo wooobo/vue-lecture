@@ -1,0 +1,89 @@
+<html>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <h1>할 일 목록</h1>
+            <div class="todo-list">
+                <div>
+                    <template v-for="todo in todoList">
+                        <todo-item-component :todo="todo" v-on:change-back="changeBack"></todo-item-component>
+                    </template>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            // 뷰 인스턴스 생성전에 만들어줘야합니다.
+            Vue.component('todo-item-component', {
+                props: ['todo'],
+                template:'<p :style="{ backgroundColor : todo.backColor }" @click="changeBack(todo)">{{todo.title}}</p>',
+                methods: {
+                    changeBack() {
+                        this.$emit('change-back',this.todo);
+                    }
+                },
+            });
+
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    todoList: [
+                        {
+                            'title' : '아침먹기',
+                            'isActive': false,
+                            'backColor': '',
+                        },
+                        {
+                            'title' : '출근하기',
+                            'isActive': false,
+                            'backColor': '',
+                        },
+                        {
+                            'title' : '업무하기',
+                            'isActive': false,
+                            'backColor': '',
+                        },
+                        {
+                            'title' : '점심먹기',
+                            'isActive': false,
+                            'backColor': '',
+                        },
+                        {
+                            'title' : '지하철타기',
+                            'isActive': false,
+                            'backColor': '',
+                        },
+                        {
+                            'title' : '청소하기',
+                            'isActive': false,
+                            'backColor': '',
+                        },
+                    ]
+                },
+                methods: {
+                    changeBack(todo) {
+                        todo.isActive = !todo.isActive;
+                        if(todo.isActive) {
+                            todo.backColor = 'yellow';
+                        } else {
+                            todo.backColor = '';
+                        }
+                    }
+                }
+            })
+        </script>
+
+        <style>
+            p {
+                padding: 10px;
+                margin: 5px 0px;
+                border: 1px solid black;
+            }
+            .active {
+                background-color: yellowgreen;
+            }
+        </style>
+    </body>
+</html>

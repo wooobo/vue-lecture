@@ -1,0 +1,67 @@
+<html>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <h1>할 일 목록</h1>
+            <div class="todo-list">
+                <div>
+                    <p v-for="todo in todoList" @click="changeBack(todo)" v-bind:class="{ active: todo.isActive }">
+                        {{todo.title}}
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    todoList: [
+                        {
+                            'title' : '아침먹기',
+                            'isActive': false,
+                        },
+                        {
+                            'title' : '출근하기',
+                            'isActive': false,
+                        },
+                        {
+                            'title' : '업무하기',
+                            'isActive': false,
+                        },
+                        {
+                            'title' : '점심먹기',
+                            'isActive': false,
+                        },
+                        {
+                            'title' : '지하철타기',
+                            'isActive': false,
+                        },
+                        {
+                            'title' : '청소하기',
+                            'isActive': false,
+                        },
+                    ]
+                },
+                methods: {
+                    changeBack(todo) {
+                        todo.isActive = !todo.isActive;
+                    }
+                }
+            })
+        </script>
+
+        <style>
+            p {
+                padding: 10px;
+                margin: 5px 0px;
+                border: 1px solid black;
+            }
+            .active {
+                background-color: yellowgreen;
+            }
+        </style>
+    </body>
+</html>
